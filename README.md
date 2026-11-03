@@ -26,3 +26,22 @@ kubectl apply -f kind_namespace.yaml
 kubectl apply -f configmap.yaml
 kubectl apply -f service.yaml
 kubectl apply -f statefullstate.yaml   
+
+# Check pods are running
+kubectl get pods -n mysql -l app=mysql
+
+# Check PVCs are bound
+kubectl get pvc -n mysql
+
+# Check the headless service
+kubectl get svc -n mysql
+
+# Port-forward to test connectivity
+kubectl port-forward -n mysql pod/mysql-statefulset-0 3306:3306
+
+mysql -h 127.0.0.1 -u root -pdevops devops
+
+kubectl delete -f statefullstate.yaml
+kubectl delete -f service.yaml
+kubectl delete -f configmap.yaml
+kubectl delete -f kind_namespace.yaml   
